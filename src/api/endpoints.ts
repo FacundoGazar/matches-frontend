@@ -7,4 +7,8 @@ export const ENDPOINTS = {
     BASE: "/teams",
     BY_ID: (id: number) => `/teams/${id}`,
   },
+  STANDINGS: {
+    BASE: "/standings",
+    BY_ID: (id: number) => `/standings/id/${id}`,
+  },
 };

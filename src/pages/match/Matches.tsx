@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useMatches } from "../hooks/useMatches";
+import { useMatches } from "../../hooks/useMatches";
 
-export const MatchesPage = () => {
+export const Matches = () => {
   const [fromInput, setFromInput] = useState<string>("");
   const [toInput, setToInput] = useState<string>("");
 
@@ -88,4 +88,4 @@ export const MatchesPage = () => {
   );
 };
 
-export default MatchesPage;
+export default Matches;

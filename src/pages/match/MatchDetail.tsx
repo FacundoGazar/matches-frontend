@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useMatch } from "../hooks/useMatch";
+import { useMatch } from "../../hooks/useMatch";
 
 const MatchDetail = () => {
   const { id } = useParams();
