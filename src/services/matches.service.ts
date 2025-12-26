@@ -10,4 +10,7 @@ type GetMatchesParams = {
 export const MatchesService = {
   getAll: (params?: GetMatchesParams) =>
     api.get<Match[]>(ENDPOINTS.MATCHES.BASE, { params }),
+
+  getById: (id: number) =>
+    api.get<Match>(ENDPOINTS.MATCHES.BY_ID(id)),
 };

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useMatches } from "../hooks/useMatches";
 
@@ -60,12 +61,25 @@ export const MatchesPage = () => {
           {data?.map((match) => (
             <tr key={match.id}>
               <td>{new Date(match.matchDate).toLocaleDateString()}</td>
-              <td>{match.homeTeam}</td>
+              <td>
+                <Link to={`/teams/${match.homeTeamId}`}>
+                  {match.homeTeam}
+                </Link>
+              </td>
               <td>
                 {match.homeScore} - {match.awayScore}
               </td>
-              <td>{match.awayTeam}</td>
-              <td>{match.id}</td>
+              <td>
+                <Link to={`/teams/${match.awayTeamId}`}>
+                  {match.awayTeam}
+                </Link>
+              </td>
+
+              <td>
+                <Link to={`/matches/${match.id}`}>
+                  {match.id}    
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
