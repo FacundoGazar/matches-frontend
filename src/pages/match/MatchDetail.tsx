@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useMatch } from "../../hooks/useMatch";
+import { formatValue } from "../../utils/format";
 
 const MatchDetail = () => {
   const { id } = useParams();
@@ -16,10 +18,24 @@ const MatchDetail = () => {
 
       <p><strong>Fecha:</strong> {new Date(data.matchDate).toLocaleDateString()}</p>
       <p>
-        <strong>{data.homeTeam}</strong> {data.homeScore} - {data.awayScore}{" "}
-        <strong>{data.awayTeam}</strong>
+        <strong>
+          <Link to={`/teams/${data.homeTeamId}`}>
+            {data.homeTeam}
+          </Link>
+        </strong> 
+        {" "}{data.homeScore} - {data.awayScore}{" "}
+        <strong>
+          <Link to={`/teams/${data.awayTeamId}`}>
+            {data.awayTeam}
+          </Link>
+        </strong>
       </p>
-
+      <p><strong>Semana:</strong> {data.week}</p>
+      <p><strong>Día:</strong> {data.day}</p>
+      <p><strong>Hora del Partido:</strong> {data.matchTime}</p>
+      <p><strong>Asistencia:</strong> {formatValue(data.attendance)}</p>
+      <p><strong>Estadio:</strong> {data.venue}</p>
+      <p><strong>Árbitro:</strong> {data.referee}</p>
       <p><strong>ID:</strong> {data.id}</p>
     </div>
   );

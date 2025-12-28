@@ -7,4 +7,10 @@ export interface Match {
   awayTeam: string;
   awayScore: number;
   matchDate: string;
+  week: string;
+  day: string;
+  matchTime: string;
+  attendance: number;
+  venue: string;
+  referee: string;
 }

@@ -11,4 +11,8 @@ export const ENDPOINTS = {
     BASE: "/standings",
     BY_ID: (id: number) => `/standings/id/${id}`,
   },
+  PLAYERS: {
+    BASE: "/playerdetails",
+    BY_ID: (id: number) => `/playerdetails/${id}`,
+  },
 };

@@ -6,6 +6,7 @@ export const Homepage = () => {
         <h1>Homepage</h1>
         <p><Link to="/matches">Matches</Link></p>
         <p><Link to="/standings">Standings</Link></p>
+        <p><Link to="/players">Players</Link></p>
     </div>
   );
 };
