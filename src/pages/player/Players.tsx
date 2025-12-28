@@ -1,7 +1,7 @@
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { usePlayers } from "../../hooks/usePlayers";
 import { useState } from "react";
-import { formatValue } from "../../utils/format";
+import { PlayersTable } from "../../components/players/PlayersTable";
 
 export const Players = () => {
   const [searchParams] = useSearchParams();
@@ -12,53 +12,35 @@ export const Players = () => {
 
   const { data, isLoading, error } = usePlayers(teamId, page, 15);
 
-  if (isLoading) return <p>Cargando...</p>;
-  if (error || !data) return <p>Error al cargar los jugadores</p>;
+  if (error) return <p>Error al cargar los jugadores</p>;
 
   return (
-    <div>
-      <h1>Players</h1>
+    <div className="container mt-4">
+      <h2 className="mb-4">
+        Players
+      </h2>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Player Name</th>
-            <th>Team Name</th>
-            <th>Nation</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.data.map(p => (
-            <tr key={`${p.playerId}-${p.teamId}`}>
-              <td>
-                <Link to={`/players/${p.playerId}`}>
-                  {p.playerName}
-                </Link>
-              </td>
-              <td>
-                <Link to={`/teams/${p.teamId}`}>
-                  {p.teamName}
-                </Link>
-              </td>
-              <td>{formatValue(p.playerNation)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div style={{ marginTop: 16 }}>
+      <PlayersTable
+        data={data?.data ?? []}
+        loading={isLoading}
+      />
+
+      <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
         <button
+          className="btn btn-outline-secondary"
           disabled={page === 1}
           onClick={() => setPage(p => p - 1)}
         >
           Anterior
         </button>
 
-        <span style={{ margin: "0 8px" }}>
-          Página {data.page} de {data.totalPages}
+        <span>
+          Página {data?.page} de {data?.totalPages}
         </span>
 
         <button
-          disabled={page === data.totalPages}
+          className="btn btn-outline-secondary"
+          disabled={page === data?.totalPages}
           onClick={() => setPage(p => p + 1)}
         >
           Siguiente

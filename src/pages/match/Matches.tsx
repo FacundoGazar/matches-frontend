@@ -1,109 +1,69 @@
-import { Link, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useMatches } from "../../hooks/useMatches";
+import { MatchesTable } from "../../components/Matches/MatchesTable";
 
 export const Matches = () => {
-  const [searchParams] = useSearchParams();
-  const [fromInput, setFromInput] = useState<string>("");
-  const [toInput, setToInput] = useState<string>("");
-
-  const [filters, setFilters] = useState<{
-    from?: string;
-    to?: string;
-  }>({});
-
+  const [fromInput, setFromInput] = useState("");
+  const [toInput, setToInput] = useState("");
   const [page, setPage] = useState(1);
 
-  const { data, isLoading, error } = useMatches(filters, page, 10);
-
-  const handleSearch = () => {
-    setFilters({
+  const { data, isLoading, error } = useMatches(
+    {
       from: fromInput || undefined,
       to: toInput || undefined,
-    });
-  };
+    },
+    page,
+    10
+  );
 
-  if (isLoading) return <p>Cargando...</p>;
   if (error) return <p>Error al cargar partidos</p>;
 
   return (
-    <div>
-      <div>
-        <label>
-          Desde:
+    <div className="container mt-4">
+      <h2 className="mb-4">Partidos</h2>
+
+      <div className="row g-3 mb-4">
+        <div className="col-md-3">
+          <label className="form-label">Desde</label>
           <input
             type="date"
+            className="form-control"
             value={fromInput}
-            onChange={(e) => setFromInput(e.target.value)}
+            onChange={e => setFromInput(e.target.value)}
           />
-        </label>
+        </div>
 
-        <label>
-          Hasta:
+        <div className="col-md-3">
+          <label className="form-label">Hasta</label>
           <input
             type="date"
+            className="form-control"
             value={toInput}
-            onChange={(e) => setToInput(e.target.value)}
+            onChange={e => setToInput(e.target.value)}
           />
-        </label>
-
-        <button onClick={handleSearch}>Buscar</button>
+        </div>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Local</th>
-            <th>Resultado</th>
-            <th>Visitante</th>
-            <th>ID</th>
-            <th>Jornada</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data?.data.map((match) => (
-            <tr key={match.id}>
-              <td>{new Date(match.matchDate).toLocaleDateString()}</td>
-              <td>
-                <Link to={`/teams/${match.homeTeamId}`}>
-                  {match.homeTeam}
-                </Link>
-              </td>
-              <td>
-                {match.homeScore} - {match.awayScore}
-              </td>
-              <td>
-                <Link to={`/teams/${match.awayTeamId}`}>
-                  {match.awayTeam}
-                </Link>
-              </td>
+      <MatchesTable
+        data={data?.data ?? []}
+        loading={isLoading}
+      />
 
-              <td>
-                <Link to={`/matches/${match.id}`}>
-                  {match.id}    
-                </Link>
-              </td>
-              <td>
-                {match.week}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <div style={{ marginTop: 16 }}>
+      <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
         <button
+          className="btn btn-outline-secondary"
           disabled={page === 1}
           onClick={() => setPage(p => p - 1)}
         >
           Anterior
         </button>
 
-        <span style={{ margin: "0 8px" }}>
+        <span>
           Página {data?.page} de {data?.totalPages}
         </span>
 
         <button
+          className="btn btn-outline-secondary"
           disabled={page === data?.totalPages}
           onClick={() => setPage(p => p + 1)}
         >

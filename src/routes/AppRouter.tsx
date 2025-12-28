@@ -7,16 +7,19 @@ import { Standings } from "../pages/Standings";
 import { Homepage } from "../pages/Homepage";
 import { Players } from "../pages/player/Players";
 import { PlayerDetail } from "../pages/player/PlayerDetail";
+import AppHeader from "../components/layout/AppHeader";
 
 export const AppRouter = () => (
   <BrowserRouter>
+    <AppHeader />
+
     <Routes>
       <Route path="/" element={<Homepage />} />
       <Route path="/matches" element={<Matches />} />
       <Route path="/matches/:id" element={<MatchDetail />} />
       <Route path="/teams/:id" element={<TeamDetail />} />
-      <Route path="/standings/" element={<Standings />} />
-      <Route path="/players/" element={<Players />} />
+      <Route path="/standings" element={<Standings />} />
+      <Route path="/players" element={<Players />} />
       <Route path="/players/:id" element={<PlayerDetail />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

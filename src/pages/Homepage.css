@@ -1,0 +1,12 @@
+.homepage {
+  padding: 32px;
+}
+
+.home-grid {
+  margin-top: 32px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  max-width: 700px;
+}
